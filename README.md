@@ -3,11 +3,11 @@
 
 # Question 1 (Naked Twins)
 Q: How do we use constraint propagation to solve the naked twins problem?  
-A: *Student should provide answer here*
+A: By searching each unit for "naked twins" and then removing those digits from all the other cells in the unit we can further reduce the search space.  As with elimiate and only_choice this new constrain should be applied in sequence repeatedly until no further reductions can be made.
 
 # Question 2 (Diagonal Sudoku)
 Q: How do we use constraint propagation to solve the diagonal sudoku problem?  
-A: *Student should provide answer here*
+A: By adding the two main diagonals to the existing set of units we can apply the existing constraints of eliminate, only_choice and naked_twins to the new units.
 
 ### Install
 
