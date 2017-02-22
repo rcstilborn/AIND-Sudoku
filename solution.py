@@ -1,4 +1,6 @@
 import logging
+import collections
+
 from utils import *
 
 logging.basicConfig(level=logging.ERROR)
@@ -40,6 +42,34 @@ def naked_twins(values):
                                     assign_value(values, loc2, values[loc2].replace(c,""))
     return values
 
+def naked_twins_new(values):
+    """Eliminate values using the naked twins strategy.
+
+    This was supposed to be a more optiomal version using list comprehensions instead of 
+    nested for loops but some (limited testing) showed no improvement!
+    Probably becuase the units are so small.
+
+    Input: Sudoku in dictionary form.
+    Output: Resulting Sudoku in dictionary form with the naked twins eliminated from peers.
+    """
+
+    # Find all instances of naked twins
+    # Eliminate the naked twins as possibilities for their peers
+    for unit in unitlist:
+        # find all the two value locations
+        pairs = [values[loc] for loc in unit if len(values[loc]) == 2]
+        # Now find any twins
+        twins = [item for item, count in collections.Counter(pairs).items() if count > 1]
+        # find all the more than two value locations
+        more_than_twos = [loc for loc in unit if len(values[loc]) > 2]
+
+        # For each twin remove them from the locations with more than two options
+        for twin in twins:
+            for loc in more_than_twos:
+                for c in twin: # Remove the twins from the cell
+                    assign_value(values, loc, values[loc].replace(c,""))
+    return values
+
 
 def only_choice(values):
     """Finalize all values that are the only choice for a unit.
@@ -56,7 +86,6 @@ def only_choice(values):
                 possibles = values[loc]
                 for loc1 in unit:
                     if loc!=loc1:
-                        #print("Removing",loc1,"(", values[loc1], ") from", loc, "(", possibles, ")")
                         for c in values[loc1]:
                             possibles = possibles.replace(c,"")
                 if len(possibles) == 1:
