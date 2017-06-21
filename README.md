@@ -1,6 +1,13 @@
 # Artificial Intelligence Nanodegree
 ## Introductory Project: Diagonal Sudoku Solver
 
+This is the first assignment in the first term of Udacity's Artificial Intelligence Nanodegree.  Our tasks were: 
+
+0. Implement the functions in `solutions.py`
+
+0. Answer the follwoing questions
+
+
 # Question 1 (Naked Twins)
 Q: How do we use constraint propagation to solve the naked twins problem?  
 A: The "naked twins" contraint says that if two cells in one unit both contain the same two values then those two values cannot be in any other cell in that unit.  By searching each unit for "naked twins" and then removing those digits from all the peers in the unit we can further reduce the search space and therefore solve the puzzle faster.  As with elimiate and only_choice this new constraint should be applied in sequence repeatedly until no further reductions can be made.
